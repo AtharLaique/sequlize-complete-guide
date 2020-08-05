@@ -3,7 +3,8 @@ const app=express();
 const morgan=require('morgan');
 const cors=require('cors');
 const bodyParser=require('body-parser');
-require('dotenv').config()
+const studentRoute=require('./routes/student');
+require('dotenv').config();
 //Envoirement variables
 const port =process.env.PORT || 3001;
 const env=process.env.NODE_ENV
@@ -15,12 +16,8 @@ if(env==='development'){
     }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}))
-//Routes 
-app.get('/',(req,res)=>{
-    res.send({
-     msg:'Welcome'
-    })
-})
+//Routes Middelwares
+app.use('/api',studentRoute)
 
 app.listen(port,()=>{
  console.log(`App is running on :${port}`)
